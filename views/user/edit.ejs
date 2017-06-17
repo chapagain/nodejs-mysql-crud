@@ -1,0 +1,39 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include ../layouts/header.ejs %>	
+		
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+<form action="/users/edit/<%= id %>" method="post" name="form1">
+	<table width="25%" border="0">
+		<tr> 
+			<td>Name</td>
+			<td><input type="text" name="name" id="name" value="<%= name %>" /></td>
+		</tr>
+		<tr> 
+			<td>Age</td>
+			<td><input type="text" name="age" value="<%= age %>" /></td>
+		</tr>
+		<tr> 
+			<td>Email</td>
+			<td><input type="text" name="email" value="<%= email %>" /></td>
+		</tr>
+		<tr> 
+			<td></td>
+			<td><input type="submit" name="Submit" value="Edit" /></td>
+		</tr>
+	</table>
+	<input type="hidden" name="_method" value="PUT" />
+</form>
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include ../layouts/footer.ejs %>
