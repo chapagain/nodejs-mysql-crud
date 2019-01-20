@@ -109,7 +109,7 @@ app.post('/add', function(req, res, next){
 // SHOW EDIT USER FORM
 app.get('/edit/(:id)', function(req, res, next){
 	req.getConnection(function(error, conn) {
-		conn.query('SELECT * FROM users WHERE id = ' + req.params.id, function(err, rows, fields) {
+		conn.query('SELECT * FROM users WHERE id = ?', [req.params.id], function(err, rows, fields) {
 			if(err) throw err
 			
 			// if user not found
