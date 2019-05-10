@@ -109,7 +109,7 @@ app.post('/add', function(req, res, next){
 // SHOW EDIT USER FORM
 app.get('/edit/(:id)', function(req, res, next){
 	req.getConnection(function(error, conn) {
-		conn.query('SELECT * FROM users WHERE id = ' + req.params.id, function(err, rows, fields) {
+		conn.query('SELECT * FROM users WHERE id = ?', req.params.id, function(err, rows, fields) {
 			if(err) throw err
 			
 			// if user not found
@@ -158,7 +158,7 @@ app.put('/edit/(:id)', function(req, res, next) {
 		}
 		
 		req.getConnection(function(error, conn) {
-			conn.query('UPDATE users SET ? WHERE id = ' + req.params.id, user, function(err, result) {
+			conn.query('UPDATE users SET ? WHERE id = ?', [user, req.params.id], function(err, result) {
 				//if(err) throw err
 				if (err) {
 					req.flash('error', err)
@@ -212,7 +212,7 @@ app.delete('/delete/(:id)', function(req, res, next) {
 	var user = { id: req.params.id }
 	
 	req.getConnection(function(error, conn) {
-		conn.query('DELETE FROM users WHERE id = ' + req.params.id, user, function(err, result) {
+		conn.query('DELETE FROM users WHERE id = ?', req.params.id, function(err, result) {
 			//if(err) throw err
 			if (err) {
 				req.flash('error', err)
